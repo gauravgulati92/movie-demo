@@ -1,6 +1,4 @@
 FROM openjdk:8-jdk-alpine
 EXPOSE 8080
-VOLUME /tmp
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ADD target/movie-demo-0.0.1-SNAPSHOT.jar movie-demo-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","movie-demo-0.0.1-SNAPSHOT.jar"]

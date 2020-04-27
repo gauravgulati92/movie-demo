@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,7 +86,7 @@ public class MovieController {
             return new ResponseEntity<>(appResponse, HttpStatus.BAD_REQUEST);
         }
         Movie movie = movieService.updateMovie(dto);
-        appResponse.setDescription("Movie created successfully");
+        appResponse.setDescription("Movie updated successfully");
         appResponse.setResponse(movie);
         return new ResponseEntity<>(appResponse, HttpStatus.OK);
     }
@@ -101,9 +102,20 @@ public class MovieController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     private ResponseEntity<AppResponse> getMovie(@PathVariable("id") Integer id) {
         AppResponse appResponse = new AppResponse();
-        appResponse.setDescription("List of movies");
+        appResponse.setDescription("Movie");
         appResponse.setResponse(movieService.getById(id));
         return new ResponseEntity<>(appResponse, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    private ResponseEntity<AppResponse> deleteMovie(@PathVariable("id") Integer id) {
+        AppResponse appResponse = new AppResponse();
+        appResponse.setDescription("Deleted");
+        movieService.delete(id);
+        appResponse.setResponse(null);
+        return new ResponseEntity<>(appResponse, HttpStatus.OK);
+    }
+
+
 
 }
