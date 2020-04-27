@@ -1,0 +1,23 @@
+version: '3'
+services: 
+  mysql:
+    container_name: test-mysql
+    build:
+      dockerfile: mysql.Dockerfile
+    ports:
+      - "3306:3306"        
+    networks:
+      - localhost      
+    environment: 
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_DATABASE=movie-demo
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=                  
+  tomcat:
+    container_name: movie-tomcat  
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" 
+    depends_on:
+      - mysql      
